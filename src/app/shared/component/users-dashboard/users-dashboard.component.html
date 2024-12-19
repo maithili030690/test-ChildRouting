@@ -1,0 +1,36 @@
+<!-- <p>{{usersInfo|json}}</p> -->
+<ng-container *ngIf="users.length>0;else noUsers">
+<div class="row">
+    <div class="col-12 text-right" >
+        <button
+        routerLink="adduser"
+        class="btn-sm" mat-raised-button color="primary">Add User</button>
+    </div>
+</div>
+
+
+    <div class="row">
+       <div class="col-md-4">
+        <ul class="list-group">
+            <li 
+            [ngClass]="{
+                'active':selectedUserId === user.userId
+            }"
+            (click)="onUserSelect(user)"
+            [routerLink]="[user.userId]"
+            [queryParams]="{userRole:user.userRole}"
+            *ngFor="let user of users"
+            class="list-group-item">
+                {{user.userName}} {{user.userId}}
+            </li>
+        </ul>
+       </div>
+       <div class="col-md-8">
+        <router-outlet></router-outlet>
+       </div>
+    </div>
+
+</ng-container>
+<ng-template #noUsers>
+    <p class="alert alert-info"> no Users</p>
+</ng-template>
